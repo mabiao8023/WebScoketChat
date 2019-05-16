@@ -3,13 +3,24 @@
     <el-aside width="200px">
       <el-row>
         <el-col :span="24">
-          <div class="grid-content contacts_search">1</div>
+          <div class="grid-content contact_search">
+            <el-input
+             size="small"
+              placeholder="请输入内容"
+              prefix-icon="el-icon-search"
+              v-model="input_search">
+            </el-input>
+          </div>
         </el-col>
       </el-row>
       <div>
         <el-row>
           <el-col :span="24">
-            <div class="grid-content">2</div>
+            <div class="grid-content contact_list">
+              <el-badge is-dot class="item">
+  <el-button class="share-button" icon="el-icon-share" type="primary"></el-button>
+</el-badge>
+            </div>
           </el-col>
         </el-row>
       </div>
@@ -22,7 +33,9 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      input_search:''
+    };
   }
 };
 </script>
@@ -43,8 +56,11 @@ export default {
   padding:10px;
   
 }
-.contacts_search {
+.contact_search {
   background: #eeebe9;
+}
+.contact_list{
+  background: #e8e7e7;
 }
 </style>
 
