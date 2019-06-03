@@ -1,20 +1,16 @@
 #!/usr/bin/env node
 var WebSocketServer = require('websocket').server;
-console.log(WebSocketServer);
-var WebSocketClient = require('websocket').client;
-console.log(WebSocketClient);
-
 var http = require('http');
-
+ 
 var server = http.createServer(function(request, response) {
     console.log((new Date()) + ' Received request for ' + request.url);
     response.writeHead(404);
     response.end();
 });
-server.listen(3000, function() {
-    console.log((new Date()) + ' Server is listening on port 3000');
+server.listen(8080, function() {
+    console.log((new Date()) + ' Server is listening on port 8080');
 });
-
+ 
 wsServer = new WebSocketServer({
     httpServer: server,
     // You should not use autoAcceptConnections for production
@@ -24,12 +20,12 @@ wsServer = new WebSocketServer({
     // to accept it.
     autoAcceptConnections: false
 });
-
+ 
 function originIsAllowed(origin) {
   // put logic here to detect whether the specified origin is allowed.
   return true;
 }
-
+ 
 wsServer.on('request', function(request) {
     if (!originIsAllowed(request.origin)) {
       // Make sure we only accept requests from an allowed origin

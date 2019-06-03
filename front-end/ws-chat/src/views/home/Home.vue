@@ -5,28 +5,44 @@
         <el-col :span="24">
           <div class="grid-content contact_search">
             <el-input
-             size="small"
+              size="small"
               placeholder="请输入内容"
               prefix-icon="el-icon-search"
-              v-model="input_search">
+              v-model="input_search"
+            >
             </el-input>
           </div>
+          <el-row>
+            <el-button @click="test">默认按钮</el-button>
+            <el-button type="primary">主要按钮</el-button>
+            <el-button type="success">成功按钮</el-button>
+            <el-button type="info">信息按钮</el-button>
+            <el-button type="warning">警告按钮</el-button>
+            <el-button type="danger">危险按钮</el-button>
+          </el-row>
         </el-col>
       </el-row>
       <div>
         <el-row>
           <el-col :span="24">
             <div class="grid-content contact_list">
-              <el-badge is-dot class="item">
-  <el-button class="share-button" icon="el-icon-share" type="primary"></el-button>
-</el-badge>
+              <el-badge
+                is-dot
+                class="item"
+              >
+                <el-button
+                  class="share-button"
+                  icon="el-icon-share"
+                  type="primary"
+                ></el-button>
+              </el-badge>
             </div>
           </el-col>
         </el-row>
       </div>
     </el-aside>
     <el-main>
-      聊天内容
+      聊天内容112345678
     </el-main>
   </el-container>
 </template>
@@ -34,8 +50,11 @@
 export default {
   data() {
     return {
-      input_search:''
+      input_search: ""
     };
+  },
+  test(){
+    console.log(1234567)
   }
 };
 </script>
@@ -53,13 +72,12 @@ export default {
 .grid-content {
   border-radius: 4px;
   min-height: 56px;
-  padding:10px;
-  
+  padding: 10px;
 }
 .contact_search {
   background: #eeebe9;
 }
-.contact_list{
+.contact_list {
   background: #e8e7e7;
 }
 </style>
