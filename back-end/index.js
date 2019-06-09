@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// 客户端
 var WebSocketClient = require('websocket').client;
  
 var client = new WebSocketClient();
@@ -17,7 +18,7 @@ client.on('connect', function(connection) {
         console.log("Connection Error: " + error.toString());
     });
 
-    // 服务端断开连接
+    // 服务端连接关闭
     connection.on('close', function() {
         console.log('echo-protocol Connection Closed');
     });
