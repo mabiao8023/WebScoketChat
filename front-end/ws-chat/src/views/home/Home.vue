@@ -13,7 +13,7 @@
             </el-input>
           </div>
           <el-row>
-            <el-button @click="test">默认按钮</el-button>
+            <el-button @click="test">发送消息</el-button>
             <el-button type="primary">主要按钮</el-button>
             <el-button type="success">成功按钮</el-button>
             <el-button type="info">信息按钮</el-button>
@@ -43,14 +43,19 @@
     </el-aside>
     <el-main>
       聊天内容112345678
-    </el-main>
+      <template v-for="msg in msgs">
+        {{msg}}
+      </template>
+      </el-main>
   </el-container>
 </template>
 <script>
 export default {
   data() {
     return {
-      input_search: ""
+      input_search: "",
+      msgs:[
+      ]
     };
   },
   created() {
@@ -59,6 +64,8 @@ export default {
   methods: {
     test() {
       console.log(1234567);
+      let msg = "hello world !"
+      client.send(msg);
     },
     initWebSocket() {
       //初始化weosocket
@@ -84,7 +91,7 @@ export default {
             setTimeout(sendNumber, 1000);
           }
         }
-        sendNumber();
+        // sendNumber();
       };
 
       client.onclose = function() {
