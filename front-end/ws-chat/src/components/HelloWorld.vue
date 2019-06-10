@@ -8,12 +8,17 @@
 export default {
   name: "HelloWorld",
   data() {
-    return {};
+    return {
+
+    };
   },
   created() {
     this.initWebSocket();
   },
   methods: {
+    e(){
+     
+    },
     initWebSocket() {
       //初始化weosocket
       console.log(this.$websocket);

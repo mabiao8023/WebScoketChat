@@ -43,10 +43,13 @@
     </el-aside>
     <el-main>
       聊天内容112345678
-      <template v-for="msg in msgs">
-        {{msg}}
-      </template>
-      </el-main>
+      <ul>
+        <template v-for="(msg,idx) in msgs">
+          <li :key="idx"> {{msg.content}}</li>
+        </template>
+      </ul>
+
+    </el-main>
   </el-container>
 </template>
 <script>
@@ -54,8 +57,8 @@ export default {
   data() {
     return {
       input_search: "",
-      msgs:[
-      ]
+      msgs: [],
+      clientData: ""
     };
   },
   created() {
@@ -64,8 +67,8 @@ export default {
   methods: {
     test() {
       console.log(1234567);
-      let msg = "hello world !"
-      client.send(msg);
+      let msg = "hello world !";
+      this.clientData.send(msg);
     },
     initWebSocket() {
       //初始化weosocket
@@ -76,6 +79,7 @@ export default {
         "echo-protocol"
       );
       console.log(client);
+      this.clientData = client;
       client.onerror = function() {
         console.log("Connection Error");
       };
@@ -98,9 +102,11 @@ export default {
         console.log("echo-protocol Client Closed");
       };
 
-      client.onmessage = function(e) {
+      client.onmessage = e => {
         if (typeof e.data === "string") {
           console.log("Received: '" + e.data + "'");
+          console.log("test: " + e.data);
+          this.msgs.push({ content: e.data });
         }
       };
     }
@@ -116,7 +122,7 @@ export default {
   background: #e6e6e6;
 }
 .el-main {
-  color: #f5f5f5;
+  color: #303133;
 }
 .grid-content {
   border-radius: 4px;

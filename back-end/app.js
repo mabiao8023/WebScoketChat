@@ -34,10 +34,11 @@ wsServer.on('request', function(request) {
 
     // 服务端监听收到客户端信息
     connection.on('message', function(message) {
-        console.log(message.type);
+        // console.log(message.type);
         
         if (message.type === 'utf8') {
-            console.log('Received Message: ' + message.utf8Data);
+            console.log('Received Message--: ' + message.utf8Data);
+            console.log(connection);
             connection.sendUTF(message.utf8Data);
         }
        
