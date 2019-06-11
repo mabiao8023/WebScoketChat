@@ -41,15 +41,30 @@
         </el-row>
       </div>
     </el-aside>
-    <el-main>
-      聊天内容112345678
-      <ul>
-        <template v-for="(msg,idx) in msgs">
-          <li :key="idx"> {{msg.content}}</li>
-        </template>
-      </ul>
+    <el-container>
+      <el-main>
+        聊天内容112345678
+        <ul>
+          <template v-for="(msg,idx) in msgs">
+            <li :key="idx"> {{msg.content}}</li>
+          </template>
+        </ul>
 
-    </el-main>
+      </el-main>
+      <el-footer>
+        <el-input
+          type="text"
+          :autosize="{ minRows: 1, maxRows: 2}"
+          placeholder="请输入内容"
+          v-model="textareaChat"
+        >
+          <el-button
+            slot="append"
+            @click="test"
+          >发送</el-button>
+        </el-input>
+      </el-footer>
+    </el-container>
   </el-container>
 </template>
 <script>
@@ -58,7 +73,8 @@ export default {
     return {
       input_search: "",
       msgs: [],
-      clientData: ""
+      clientData: "",
+      textareaChat: ""
     };
   },
   created() {
@@ -67,15 +83,20 @@ export default {
   methods: {
     test() {
       console.log(1234567);
-      let msg = "hello world !";
-      this.clientData.send(msg);
+      if (this.textareaChat !== "") {
+        let msg = this.textareaChat;
+        this.clientData.send(msg);
+        this.textareaChat = "";
+      } else {
+        this.$message.error("请先输入您要发送的信息");
+      }
     },
     initWebSocket() {
       //初始化weosocket
       console.log(this.$websocket);
       const WebSocketClient = this.$websocket.w3cwebsocket;
       const client = new WebSocketClient(
-        "ws://localhost:8080/",
+        "ws://localhost:8091/",
         "echo-protocol"
       );
       console.log(client);

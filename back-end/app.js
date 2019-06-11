@@ -10,9 +10,9 @@ var server = http.createServer(function(request, response) {
     response.end();
 });
 
-server.listen(8080, function() {
+server.listen(8091, function() {
     // 创建连接
-    console.log((new Date()) + ' Server is listening on port 8080');
+    console.log((new Date()) + ' Server is listening on port 8091');
 });
 
 wsServer = new WebSocketServer({
@@ -34,11 +34,10 @@ wsServer.on('request', function(request) {
 
     // 服务端监听收到客户端信息
     connection.on('message', function(message) {
-        // console.log(message.type);
         
         if (message.type === 'utf8') {
             console.log('Received Message--: ' + message.utf8Data);
-            console.log(connection);
+            console.log(listener);
             connection.sendUTF(message.utf8Data);
         }
        

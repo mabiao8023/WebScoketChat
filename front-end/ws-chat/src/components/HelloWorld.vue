@@ -24,7 +24,7 @@ export default {
       console.log(this.$websocket);
       const WebSocketClient = this.$websocket.w3cwebsocket;
       const client = new WebSocketClient(
-        "ws://localhost:3000/",
+        "ws://localhost:8091/",
         "echo-protocol"
       );
       console.log(client);
