@@ -10,9 +10,9 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "element-ui": "^2.8.2",
+    "isomorphic-ws": "^4.0.1",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.6",
-    "websocket": "^1.0.28"
+    "vue-router": "^3.0.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.7.0",

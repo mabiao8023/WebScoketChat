@@ -73,63 +73,48 @@ export default {
     return {
       input_search: "",
       msgs: [],
-      clientData: "",
-      textareaChat: ""
+      textareaChat: "1433223",
     };
   },
   created() {
     this.initWebSocket();
+
   },
   methods: {
+    // 测试发送信息
     test() {
-      console.log(1234567);
       if (this.textareaChat !== "") {
-        let msg = this.textareaChat;
-        this.clientData.send(msg);
-        this.textareaChat = "";
+        // Create WebSocket connection.
+        const socket = new this.$websocket("ws://localhost:8089");
+        
+        // Connection opened
+        socket.addEventListener("open", event => {
+          let msg = this.textareaChat;
+          socket.send("Hello Server! " + msg);
+        });
+
+        // Listen for messages
+        socket.addEventListener("message", event => {
+          console.log("Message from server ", event);
+          console.log("Message from server ", event.data);
+          this.msgs.push({ content: event.data });
+        });
+        // socket.onmessage = function incoming(data) {
+        //   console.log(`Roundtrip time: ${Date.now() - data} ms`);
+
+        //   setTimeout(function timeout() {
+        //     socket.send(Date.now());
+        //   }, 500);
+        // };
       } else {
         this.$message.error("请先输入您要发送的信息");
       }
     },
     initWebSocket() {
       //初始化weosocket
-      console.log(this.$websocket);
-      const WebSocketClient = this.$websocket.w3cwebsocket;
-      const client = new WebSocketClient(
-        "ws://localhost:8091/",
-        "echo-protocol"
-      );
-      console.log(client);
-      this.clientData = client;
-      client.onerror = function() {
-        console.log("Connection Error");
-      };
-
-      client.onopen = function() {
-        console.log("WebSocket Client Connected");
-
-        function sendNumber() {
-          if (client.readyState === client.OPEN) {
-            var number = Math.round(Math.random() * 0xffffff);
-            client.send(number.toString());
-            client.send("hello world !");
-            setTimeout(sendNumber, 1000);
-          }
-        }
-        // sendNumber();
-      };
-
-      client.onclose = function() {
-        console.log("echo-protocol Client Closed");
-      };
-
-      client.onmessage = e => {
-        if (typeof e.data === "string") {
-          console.log("Received: '" + e.data + "'");
-          console.log("test: " + e.data);
-          this.msgs.push({ content: e.data });
-        }
-      };
+      // console.log(this.$websocket);
+      // const ws = new this.$websocket("ws://localhost:8089/");
+      // this.socket = ws;
     }
   }
 };
